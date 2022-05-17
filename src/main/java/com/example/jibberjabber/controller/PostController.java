@@ -43,4 +43,10 @@ public class PostController {
         val post = postService.getPostById(id);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
+
+    @PatchMapping("/{id}/respond")
+    public ResponseEntity<?> respond(@PathVariable UUID id,@Valid @RequestBody PostCreateDTO postCreateDTO) {
+        val post = postService.respond(id,postCreateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(post);
+    }
 }

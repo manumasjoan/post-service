@@ -59,4 +59,29 @@ public class PostServiceImpl implements PostService {
         throw new PostNotFoundException(String.format("No post found for id: %s", uuid));
 
     }
+
+    @Override
+    public PostDTO respond(UUID id, PostCreateDTO postCreateDTO) {
+        if (postRepository.existsById(id)) {
+            val post = postRepository.findById(id).get();
+
+            Post responsePost = Post.builder()
+                    .message(postCreateDTO.getMessage())
+                    .user(postCreateDTO.getUser())
+                    .responses(List.of())
+                    .date(LocalDateTime.now())
+                    .build();
+
+
+            List<Post> responses= post.getResponses();
+            responses.add(responsePost);
+            post.setResponses(responses);
+
+            val updatedPost= postRepository.save(post);
+            return updatedPost.toDTO();
+
+        }
+        throw new PostNotFoundException(String.format("No post found for id: %s", id));
+
+    }
 }

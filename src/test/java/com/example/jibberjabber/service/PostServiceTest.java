@@ -69,6 +69,16 @@ public class PostServiceTest {
         assertEquals(posts.get(1).getId(),postID3);
     }
 
+    @Test
+    void Test005_PostServiceWhens() {
+        val post= postService.createPost(post1);
+        val postID1 = post.getId();
+        assertEquals(0,post.getResponses().size() );
+        val respondedPost= postService.respond(postID1,post2);
+        assertEquals(1,respondedPost.getResponses().size() );
+
+    }
+
 
 
 }

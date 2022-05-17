@@ -1,7 +1,6 @@
 package com.example.jibberjabber.entity;
 
 import com.example.jibberjabber.model.PostDTO;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import org.hibernate.annotations.LazyCollection;
@@ -9,6 +8,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @javax.validation.constraints.NotNull
+    @NotNull
     private List<Post> responses;
 
     private LocalDateTime date;
