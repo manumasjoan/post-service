@@ -3,6 +3,7 @@ package com.example.jibberjabber.controller;
 import com.example.jibberjabber.model.PostCreateDTO;
 import com.example.jibberjabber.service.PostService;
 import lombok.val;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,8 @@ public class PostController {
     }
 
     @GetMapping("/all/{user}")
-    public ResponseEntity<?> getAllPostsByUser (@PathVariable String user) {
-        val posts = postService.getAllPostsByUser(user);
+    public ResponseEntity<?> getAllPostsByUser (@PathVariable String user, Pageable pageable) {
+        val posts = postService.getAllPostsByUser(user, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
 

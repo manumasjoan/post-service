@@ -1,19 +1,31 @@
 version: '3'
 services:
   web:
-    build: .
+    container_name: "compose-api"
+    build:
+        context: .
+        dockerfile: Dockerfile
     ports:
-      - "8080:8080"
-    depends_on:
-      - db
+        - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5423/compose-postgres
-      - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+        DB_USER: postgres
+        DB_PASSWORD: password
+        DB_NAME: compose-db
+        DB_HOST: postgres_db
+        DB_PORT: 5423
+
   db:
     image: postgres:12.9
-    container_name: db
+    restart: always
+    ports:
+      - '5423:5423'
     environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=compose-db
+    volumes:
+        - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    external: false
