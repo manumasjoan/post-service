@@ -61,7 +61,7 @@ public class PostControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
     }
 
-    @Test
+    /**@Test
     void Test003_PostControllerWhenReceivesValidUserShouldAllUsersPosts() {
 
         HttpEntity<PostCreateDTO> request1 = new HttpEntity<>(post1);
@@ -93,7 +93,7 @@ public class PostControllerTest {
         val getResponse3 = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
         assertEquals(0, getResponse3.getBody().length);
 
-    }
+    }**/
 
     @Test
     void Test005_PostControllerWhenReceivesValidPostIDShouldReturnPost() {
