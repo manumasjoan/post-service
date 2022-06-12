@@ -18,4 +18,6 @@ public interface PostService {
     PostDTO getPostById(UUID uuid);
 
     PostDTO respond(UUID id, PostCreateDTO postCreateDTO);
+
+    Page<PostDTO> getAllPosts(Pageable pageable);
 }

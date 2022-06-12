@@ -84,4 +84,9 @@ public class PostServiceImpl implements PostService {
         throw new PostNotFoundException(String.format("No post found for id: %s", id));
 
     }
+
+    @Override
+    public Page<PostDTO> getAllPosts(Pageable pageable) {
+        return postRepository.findAll(pageable).map(Post::toDTO);
+    }
 }

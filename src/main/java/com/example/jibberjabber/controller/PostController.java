@@ -50,4 +50,10 @@ public class PostController {
         val post = postService.respond(id,postCreateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllPosts (Pageable pageable) {
+        val posts = postService.getAllPosts(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    }
 }
