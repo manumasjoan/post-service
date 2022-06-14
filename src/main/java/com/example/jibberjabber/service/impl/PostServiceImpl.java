@@ -27,7 +27,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO createPost(PostCreateDTO postCreateDTO) {
         Post post = Post.builder()
-                .message(postCreateDTO.getMessage())
+                .message(postCreateDTO.getText())
                 .user(postCreateDTO.getUser())
                 .responses(List.of())
                 .date(LocalDateTime.now())
@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
             val post = postRepository.findById(id).get();
 
             Post responsePost = Post.builder()
-                    .message(postCreateDTO.getMessage())
+                    .message(postCreateDTO.getText())
                     .user(postCreateDTO.getUser())
                     .responses(List.of())
                     .date(LocalDateTime.now())

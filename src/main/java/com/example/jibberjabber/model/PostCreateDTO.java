@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class PostCreateDTO {
 
-    private String message;
+    private String text;
 
     private String user;
 }

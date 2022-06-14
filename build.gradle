@@ -25,6 +25,8 @@ dependencies {
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
 }
 
 tasks.named('test') {
