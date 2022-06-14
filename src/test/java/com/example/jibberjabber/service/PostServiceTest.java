@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,22 +20,22 @@ public class PostServiceTest {
     private PostService postService;
 
     PostCreateDTO post1= PostCreateDTO.builder()
-            .message("testing")
+            .text("testing")
             .user("user")
             .build();
     PostCreateDTO post2= PostCreateDTO.builder()
-            .message("test")
+            .text("test")
             .user("user2")
             .build();
     PostCreateDTO post3= PostCreateDTO.builder()
-            .message("message")
+            .text("message")
             .user("user")
             .build();
 
     @Test
     void Test001_PostServiceWhenReceivesValidPostCreateDTOShouldCreatePost() {
         val createdPost = postService.createPost(post1);
-        assertEquals(createdPost.getMessage(),post1.getMessage());
+        assertEquals(createdPost.getMessage(),post1.getText());
         assertEquals(createdPost.getUser(),post1.getUser());
         assertNotNull(createdPost.getId());
     }
@@ -45,7 +44,7 @@ public class PostServiceTest {
     void Test002_PostServiceWhenReceivesValidPostIdShouldReturnPost() {
         val postID = postService.createPost(post2).getId();
         val post = postService.getPostById(postID);
-        assertEquals(post.getMessage(),post2.getMessage());
+        assertEquals(post.getMessage(),post2.getText());
         assertEquals(post.getUser(),post2.getUser());
         assertEquals(post.getId(),postID);
     }

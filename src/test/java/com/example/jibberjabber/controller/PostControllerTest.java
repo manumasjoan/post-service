@@ -26,15 +26,15 @@ public class PostControllerTest {
     private final String baseUrl = "/post";
 
     PostCreateDTO post1= PostCreateDTO.builder()
-            .message("testing")
+            .text("testing")
             .user("user")
             .build();
     PostCreateDTO post2= PostCreateDTO.builder()
-            .message("test")
+            .text("test")
             .user("user2")
             .build();
     PostCreateDTO post3= PostCreateDTO.builder()
-            .message("message")
+            .text("message")
             .user("user")
             .build();
 
@@ -51,7 +51,7 @@ public class PostControllerTest {
     @Test
     void Test002_PostControllerWhenReceivesInvalidCreatePostDTOShouldReturnBadRequest() {
         val post= PostCreateDTO.builder()
-                .message("")
+                .text("")
                 .user("user")
                 .build();
 
