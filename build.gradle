@@ -27,6 +27,11 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+
+	implementation 'org.springframework.metrics:spring-metrics:0.5.1.RELEASE'
+	implementation 'com.netflix.spectator:spectator-api:0.55.0'
+	implementation 'org.springframework:spring-aspects'
+
 }
 
 tasks.named('test') {
