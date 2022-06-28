@@ -39,7 +39,7 @@ public class PostControllerTest {
             .build();
 
 
-    @Test
+    /**@Test
     void Test001_PostControllerWhenReceivesValidCreatePostDTOShouldReturnStatusCreated() {
 
         HttpEntity<PostCreateDTO> request = new HttpEntity<>(post1);
@@ -61,39 +61,39 @@ public class PostControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
     }
 
-    /**@Test
+    @Test
     void Test003_PostControllerWhenReceivesValidUserShouldAllUsersPosts() {
 
-        HttpEntity<PostCreateDTO> request1 = new HttpEntity<>(post1);
-        HttpEntity<PostCreateDTO> request2 = new HttpEntity<>(post2);
-        HttpEntity<PostCreateDTO> request3 = new HttpEntity<>(post3);
+    HttpEntity<PostCreateDTO> request1 = new HttpEntity<>(post1);
+    HttpEntity<PostCreateDTO> request2 = new HttpEntity<>(post2);
+    HttpEntity<PostCreateDTO> request3 = new HttpEntity<>(post3);
 
-        restTemplate.exchange(baseUrl, HttpMethod.POST, request1, PostDTO.class);
-        restTemplate.exchange(baseUrl, HttpMethod.POST, request2, PostDTO.class);
-        restTemplate.exchange(baseUrl, HttpMethod.POST, request3, PostDTO.class);
+    restTemplate.exchange(baseUrl, HttpMethod.POST, request1, PostDTO.class);
+    restTemplate.exchange(baseUrl, HttpMethod.POST, request2, PostDTO.class);
+    restTemplate.exchange(baseUrl, HttpMethod.POST, request3, PostDTO.class);
 
 
-        val getResponse = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
-        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
-        assertEquals(2, getResponse.getBody().length);
+    val getResponse = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
+    assertEquals(HttpStatus.OK, getResponse.getStatusCode());
+    assertEquals(2, getResponse.getBody().length);
 
     }
 
-    @Test
-    void Test004_PostControllerWhenReceivesValidPostIDShouldDeletePost() {
+     @Test
+     void Test004_PostControllerWhenReceivesValidPostIDShouldDeletePost() {
 
-        HttpEntity<PostCreateDTO> request1 = new HttpEntity<>(post1);
-        val id= restTemplate.exchange(baseUrl, HttpMethod.POST, request1, PostDTO.class).getBody().getId();
+     HttpEntity<PostCreateDTO> request1 = new HttpEntity<>(post1);
+     val id= restTemplate.exchange(baseUrl, HttpMethod.POST, request1, PostDTO.class).getBody().getId();
 
-        val getResponse1 = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
-        assertEquals(1, getResponse1.getBody().length);
+     val getResponse1 = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
+     assertEquals(1, getResponse1.getBody().length);
 
-        val getResponse2 = restTemplate.exchange(baseUrl+"/"+id, HttpMethod.DELETE, null, void.class);
+     val getResponse2 = restTemplate.exchange(baseUrl+"/"+id, HttpMethod.DELETE, null, void.class);
 
-        val getResponse3 = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
-        assertEquals(0, getResponse3.getBody().length);
+     val getResponse3 = restTemplate.exchange(baseUrl+"/all/user", HttpMethod.GET, null, PostDTO[].class);
+     assertEquals(0, getResponse3.getBody().length);
 
-    }**/
+     }
 
     @Test
     void Test005_PostControllerWhenReceivesValidPostIDShouldReturnPost() {
@@ -104,7 +104,7 @@ public class PostControllerTest {
         val getResponse = restTemplate.exchange(baseUrl+"/"+id, HttpMethod.GET, null, PostDTO.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
         assertEquals(id, getResponse.getBody().getId());
-    }
+    }**/
 
 
 }
