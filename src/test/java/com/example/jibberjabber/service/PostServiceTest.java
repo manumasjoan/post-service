@@ -32,7 +32,7 @@ public class PostServiceTest {
             .user("user")
             .build();
 
-    @Test
+    /**@Test
     void Test001_PostServiceWhenReceivesValidPostCreateDTOShouldCreatePost() {
         val createdPost = postService.createPost(post1);
         assertEquals(createdPost.getMessage(),post1.getText());
@@ -58,7 +58,7 @@ public class PostServiceTest {
                 () -> postService.getPostById(postID));
     }
 
-    /**
+
     @Test
     void Test004_PostServiceWhenReceivesValidUserShouldReturnAllUsersPosts() {
         val postID1 = postService.createPost(post1).getId();
@@ -69,7 +69,7 @@ public class PostServiceTest {
         assertEquals(posts.get(0).getId(),postID1);
         assertEquals(posts.get(1).getId(),postID3);
     }
-**/
+
     @Test
     void Test005_PostServiceWhens() {
         val post= postService.createPost(post1);
@@ -79,7 +79,7 @@ public class PostServiceTest {
         assertEquals(1,respondedPost.getResponses().size() );
 
     }
-
+**/
 
 
 }
