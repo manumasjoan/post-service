@@ -6,12 +6,12 @@ import com.example.jibberjabber.model.PostCreateDTO;
 import com.example.jibberjabber.model.PostDTO;
 import com.example.jibberjabber.repository.PostRepository;
 import com.example.jibberjabber.service.PostService;
+import com.example.jibberjabber.service.UserService;
 import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -22,9 +22,11 @@ public class PostServiceImpl implements PostService {
     private final Logger logger = Logger.getLogger(PostServiceImpl.class.getName());
 
     private final PostRepository postRepository;
+    private final UserService userService;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -32,9 +34,8 @@ public class PostServiceImpl implements PostService {
         logger.info("Creating post");
         Post post = Post.builder()
                 .message(postCreateDTO.getText())
-                .user(postCreateDTO.getUser())
+                .user(userService.getCurrentUser())
                 .responses(List.of())
-                .date(LocalDateTime.now())
                 .build();
 
         logger.info("cerated post: " + post);
@@ -44,15 +45,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getAllPostsByUser(String user, Pageable pageable) {
-        return postRepository.findAllByUser(user, pageable).map(Post::toDTO);
+    public Page<PostDTO> getAllPostsByUser(UUID userId, Pageable pageable) {
+        return postRepository.findAllByUser(userService.getUserById(userId), pageable).map(Post::toDTO);
     }
 
     @Override
     public void deletePost(UUID uuid) {
         if (postRepository.existsById(uuid)) {
             logger.info("Deleting post");
-            postRepository.deleteById(uuid);
+            val post = postRepository.findById(uuid).get();
+            if(post.getUser().getId().equals(userService.getCurrentUser().getId())) {
+                postRepository.deleteById(uuid);
+            } else {
+                throw new RuntimeException("You can't delete post from another user");
+            }
             return;
         }
         throw new PostNotFoundException(String.format("No post found for id: %s", uuid));
@@ -78,9 +84,8 @@ public class PostServiceImpl implements PostService {
 
             Post responsePost = Post.builder()
                     .message(postCreateDTO.getText())
-                    .user(postCreateDTO.getUser())
+                    .user(userService.getCurrentUser())
                     .responses(List.of())
-                    .date(LocalDateTime.now())
                     .build();
 
             logger.info("Created response post: " + responsePost);
