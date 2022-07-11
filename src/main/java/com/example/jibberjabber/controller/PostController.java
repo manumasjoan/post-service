@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @GetMapping("/all/{user}")
-    public ResponseEntity<?> getAllPostsByUser (@PathVariable String user, Pageable pageable) {
+    public ResponseEntity<?> getAllPostsByUser (@PathVariable UUID user, Pageable pageable) {
         val posts = postService.getAllPostsByUser(user, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }

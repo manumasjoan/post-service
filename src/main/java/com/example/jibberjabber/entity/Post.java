@@ -40,18 +40,14 @@ public class Post {
     @NotNull
     private List<Post> responses;
 
-    private LocalDateTime date;
-
-    @NotNull
-    @NotEmpty
-    private String user;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private User user;
 
     public PostDTO toDTO() {
         return PostDTO.builder()
                 .id(id)
                 .message(message)
-                .date(date)
-                .user(user)
+                .user(user.toDTO())
                 .responses(responses.stream().map(Post::toDTO).collect(Collectors.toList()))
                 .build();
     }

@@ -11,7 +11,7 @@ public interface PostService {
 
     PostDTO createPost(PostCreateDTO postCreateDTO);
 
-    Page<PostDTO> getAllPostsByUser(String user, Pageable pageable);
+    Page<PostDTO> getAllPostsByUser(UUID user, Pageable pageable);
 
     void deletePost(UUID uuid);
 

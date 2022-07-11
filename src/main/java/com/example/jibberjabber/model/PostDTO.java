@@ -1,9 +1,7 @@
 package com.example.jibberjabber.model;
 
-import com.example.jibberjabber.entity.Post;
+import com.example.jibberjabber.entity.User;
 import lombok.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +19,5 @@ public class PostDTO {
 
     private List<PostDTO> responses;
 
-    private LocalDateTime date;
-
-    private String user;
+    private UserDTO user;
 }
