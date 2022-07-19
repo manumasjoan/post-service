@@ -62,3 +62,16 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+
+      - name: Update server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.JJ_DEV_HOSTS }}
+          username: ${{ secrets.JJ_DEV_USERNAME }}
+          key: ${{ secrets.JJ_DEV_KEY }}
+          script: |
+            cd JibberJabber
+            sudo docker compose stop
+            sudo docker compose pull
+            sudo docker compose up --detach
