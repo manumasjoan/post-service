@@ -22,12 +22,14 @@ public class UserController {
     }
 
     @GetMapping
+    @Timed
     public ResponseEntity<?> getLoggedUser() {
         val user = userService.getCurrentUser();
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/{id}")
+    @Timed
     public ResponseEntity<?> getUser(@PathVariable UUID id) {
         val user = userService.getUserById(id);
         return ResponseEntity.ok(user);

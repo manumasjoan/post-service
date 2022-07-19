@@ -24,36 +24,42 @@ public class PostController {
     }
 
     @PostMapping
+    @Timed
     public ResponseEntity<?> post(@Valid @RequestBody PostCreateDTO postCreateDTO) {
         val createdPost = postService.createPost(postCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 
     @GetMapping("/all/{user}")
+    @Timed
     public ResponseEntity<?> getAllPostsByUser (@PathVariable UUID user, Pageable pageable) {
         val posts = postService.getAllPostsByUser(user, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
 
     @DeleteMapping("/{id}")
+    @Timed
     public ResponseEntity<?> deletePost(@PathVariable UUID id) {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
+    @Timed
     public ResponseEntity<?> getPostById(@PathVariable UUID id) {
         val post = postService.getPostById(id);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 
     @PatchMapping("/{id}/respond")
+    @Timed
     public ResponseEntity<?> respond(@PathVariable UUID id,@Valid @RequestBody PostCreateDTO postCreateDTO) {
         val post = postService.respond(id,postCreateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 
     @GetMapping()
+    @Timed
     public ResponseEntity<?> getAllPosts (Pageable pageable) {
         val posts = postService.getAllPosts(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
